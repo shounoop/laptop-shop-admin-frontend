@@ -1,6 +1,7 @@
 enum PATH {
   LOGIN = '/',
-  PRODUCT = '/product'
+  PRODUCT = '/product',
+  USER = '/user'
 }
 
 export default PATH

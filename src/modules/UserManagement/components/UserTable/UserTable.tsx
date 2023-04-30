@@ -3,34 +3,33 @@ import mainAxios from '@/src/libs/main-axios'
 import { Col, Popconfirm, Row, Table, message } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { useEffect, useState } from 'react'
-import UpdatingProduct from '../UpdatingProduct'
 
 interface RecordType {
-  productName: string
-  price: number
-  description: string
-  photoUrl: string
-  quantity: number
+  email: string
+  phone: number
+  firstName: string
+  lastName: string
+  address: number
   type: string
   action?: {
-    productId?: string
+    userId?: string
   }
 }
 
 interface Props {}
 
-const ProductTable: React.FC<Props> = props => {
+const UserTable: React.FC<Props> = props => {
   // useState
-  const [products, setProducts] = useState<any[]>()
+  const [users, setUsers] = useState<any[]>()
   const [records, setRecords] = useState<RecordType[]>()
 
   // useEffect
   useEffect(() => {
     ;(async () => {
       try {
-        const res: any = await mainAxios.get(`http://localhost:3004/products`)
+        const res: any = await mainAxios.get(`http://localhost:3001/users`)
 
-        setProducts(res)
+        setUsers(res)
       } catch (error) {
         console.log(error)
       }
@@ -38,33 +37,33 @@ const ProductTable: React.FC<Props> = props => {
   }, [])
 
   useEffect(() => {
-    if (!products) return
+    if (!users) return
 
-    const newRecords = products.map(product => ({
-      productName: product.productName,
-      price: product.price,
-      description: product.description,
-      photoUrl: product.photoUrl,
-      quantity: product.quantity,
-      type: product.type,
-      action: { productId: product.productId }
+    const mappedRecords = users.map(user => ({
+      email: user.email,
+      phone: user.phone,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      address: user.address,
+      type: user.type,
+      action: { userId: user.userId }
     }))
 
-    setRecords(newRecords)
-  }, [products])
+    setRecords(mappedRecords)
+  }, [users])
 
   // functions
-  const handleDelete = async (productId: string | undefined) => {
-    if (!productId) {
+  const handleDelete = async (userId: string | undefined) => {
+    if (!userId) {
       return
     }
 
     try {
-      await mainAxios.delete(`http://localhost:3004/products/${productId}`)
+      await mainAxios.delete(`http://localhost:3001/users/${userId}`)
 
-      const newProducts = products?.filter(item => item.productId !== productId)
+      const filterredUsers = users?.filter(item => item.userId !== userId)
 
-      setProducts(newProducts)
+      setUsers(filterredUsers)
 
       message.success('Xóa thành công')
     } catch (error) {
@@ -75,26 +74,24 @@ const ProductTable: React.FC<Props> = props => {
   // columns of table
   const columns: ColumnsType<RecordType> = [
     {
-      title: 'Tên sản phẩm',
-      dataIndex: 'productName',
-      render: text => <a>{text}</a>
+      title: 'Email',
+      dataIndex: 'email'
     },
     {
-      title: 'Giá',
-      dataIndex: 'price'
+      title: 'Số điện thoại',
+      dataIndex: 'phone'
     },
     {
-      title: 'Mô tả',
-      dataIndex: 'description'
+      title: 'Tên',
+      dataIndex: 'firstName'
     },
     {
-      width: 200,
-      title: 'Ảnh (url)'
-      // dataIndex: 'photoUrl',
+      title: 'Họ',
+      dataIndex: 'lastName'
     },
     {
-      title: 'Số lượng',
-      dataIndex: 'quantity'
+      title: 'Địa chỉ',
+      dataIndex: 'address'
     },
     {
       title: 'Kiểu',
@@ -111,15 +108,11 @@ const ProductTable: React.FC<Props> = props => {
                 title="Xóa"
                 description="Bạn có chắc chắn muốn xóa không?"
                 okText="Có"
-                onConfirm={() => handleDelete(record?.action?.productId)}
+                onConfirm={() => handleDelete(record?.action?.userId)}
                 cancelText="Không"
               >
                 <Button type="primary" text={'Xóa'} />,
               </Popconfirm>
-            </Col>
-
-            <Col>
-              <UpdatingProduct oldData={record} />
             </Col>
           </Row>
         )
@@ -134,10 +127,10 @@ const ProductTable: React.FC<Props> = props => {
         dataSource={records}
         className="mt-10"
         pagination={false}
-        scroll={{ x: 'max-content' }}
+        scroll={{ x: 'max-content', y: `500px` }}
       />
     </div>
   )
 }
 
-export default ProductTable
+export default UserTable
