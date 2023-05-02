@@ -77,6 +77,8 @@ const ProductTable: React.FC<Props> = props => {
     {
       title: 'Tên sản phẩm',
       dataIndex: 'productName',
+      fixed: true,
+      width: 200,
       render: text => <a>{text}</a>
     },
     {
@@ -85,13 +87,13 @@ const ProductTable: React.FC<Props> = props => {
     },
     {
       title: 'Mô tả',
+      // width: 200,
       dataIndex: 'description'
     },
-    {
-      width: 200,
-      title: 'Ảnh (url)'
-      // dataIndex: 'photoUrl',
-    },
+    // {
+    //   title: 'Ảnh (url)'
+    //   // dataIndex: 'photoUrl',
+    // },
     {
       title: 'Số lượng',
       dataIndex: 'quantity'

@@ -1,14 +1,14 @@
-import AddingNewProduct from './components/AddingNewProduct/AddingNewProduct';
-import ProductTable from './components/ProductTable/ProductTable';
+import AddingNewProduct from './components/AddingNewProduct'
+import ProductTable from './components/ProductTable'
 
 const ProductManagement: React.FC = () => {
-	return (
-		<div>
-			<AddingNewProduct />
+  return (
+    <div>
+      <AddingNewProduct />
 
-			<ProductTable />
-		</div>
-	);
-};
+      <ProductTable />
+    </div>
+  )
+}
 
-export default ProductManagement;
+export default ProductManagement
