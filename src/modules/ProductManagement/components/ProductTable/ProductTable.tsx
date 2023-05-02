@@ -96,6 +96,7 @@ const ProductTable: React.FC<Props> = props => {
     // },
     {
       title: 'Số lượng',
+      width: 90,
       dataIndex: 'quantity'
     },
     {
@@ -136,7 +137,7 @@ const ProductTable: React.FC<Props> = props => {
         dataSource={records}
         className="mt-10"
         pagination={false}
-        scroll={{ x: 'max-content' }}
+        scroll={{ x: 'max-content', y: '450px' }}
       />
     </div>
   )
