@@ -4,11 +4,11 @@ interface Props {
 
 import React, { useEffect, useState } from 'react'
 import {
+  LaptopOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined
+  ShoppingCartOutlined,
+  UserOutlined
 } from '@ant-design/icons'
 import { Layout, Menu, Button, theme } from 'antd'
 import { Title } from '@/src/components'
@@ -20,7 +20,8 @@ const { Header, Sider, Content } = Layout
 
 enum MenuItemKey {
   PRODUCT = 'product',
-  USER = 'user'
+  USER = 'user',
+  ORDER = 'order'
 }
 
 const AdminLayout: React.FC<Props> = props => {
@@ -43,6 +44,10 @@ const AdminLayout: React.FC<Props> = props => {
       setSelectedKeys([MenuItemKey.USER])
       return
     }
+    if (router.asPath === PATH.ORDER) {
+      setSelectedKeys([MenuItemKey.ORDER])
+      return
+    }
   }, [router])
 
   const {
@@ -60,10 +65,18 @@ const AdminLayout: React.FC<Props> = props => {
           items={[
             {
               key: MenuItemKey.PRODUCT,
-              icon: <UserOutlined />,
+              icon: <LaptopOutlined />,
               label: (
                 <Link href={PATH.PRODUCT}>
-                  <Title level={5} text={'Product'} />
+                  <Title
+                    level={5}
+                    text={'Sản phẩm'}
+                    className={
+                      selectedKeys.includes(MenuItemKey.PRODUCT)
+                        ? 'text-blue-500'
+                        : ''
+                    }
+                  />
                 </Link>
               )
             },
@@ -72,7 +85,32 @@ const AdminLayout: React.FC<Props> = props => {
               icon: <UserOutlined />,
               label: (
                 <Link href={PATH.USER}>
-                  <Title level={5} text={'User'} />
+                  <Title
+                    level={5}
+                    text={'Người dùng'}
+                    className={
+                      selectedKeys.includes(MenuItemKey.USER)
+                        ? 'text-blue-500'
+                        : ''
+                    }
+                  />
+                </Link>
+              )
+            },
+            {
+              key: MenuItemKey.ORDER,
+              icon: <ShoppingCartOutlined />,
+              label: (
+                <Link href={PATH.ORDER}>
+                  <Title
+                    level={5}
+                    text={'Các đơn đặt hàng'}
+                    className={
+                      selectedKeys.includes(MenuItemKey.ORDER)
+                        ? 'text-blue-500'
+                        : ''
+                    }
+                  />
                 </Link>
               )
             }

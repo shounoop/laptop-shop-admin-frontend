@@ -102,7 +102,7 @@ const AddingNewUser: React.FC<Props> = props => {
 
   return (
     <div>
-      <Button type="success" text="Thêm mới" onClick={showModal} />
+      <Button type="primary" text="Thêm mới" onClick={showModal} />
 
       <Modal
         title={
@@ -200,7 +200,7 @@ const AddingNewUser: React.FC<Props> = props => {
 
               <Col>
                 <Button
-                  type="success"
+                  type="primary"
                   onClick={handleAddingRole}
                   text="Thêm quyền"
                 />
@@ -224,7 +224,7 @@ const AddingNewUser: React.FC<Props> = props => {
           <Button
             className="mt-6 w-full"
             size="large"
-            type="success"
+            type="primary"
             text="Thêm mới người dùng"
             onClick={handleAddingNew}
           />
