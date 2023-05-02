@@ -44,9 +44,9 @@ const LoginAdmin: React.FC = () => {
 
   return (
     <Row className="h-screen" align={'middle'} justify={'center'}>
-      <div>
+      <div className='bg-slate-200 rounded-lg p-6'>
         <Row justify={'center'}>
-          <Title level={3} text={'ADMIN'} />
+          <Title level={3} text={'Đăng nhập ADMIN'} />
         </Row>
 
         <Input

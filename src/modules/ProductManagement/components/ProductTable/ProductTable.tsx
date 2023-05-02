@@ -77,6 +77,8 @@ const ProductTable: React.FC<Props> = props => {
     {
       title: 'Tên sản phẩm',
       dataIndex: 'productName',
+      fixed: true,
+      width: 200,
       render: text => <a>{text}</a>
     },
     {
@@ -85,15 +87,16 @@ const ProductTable: React.FC<Props> = props => {
     },
     {
       title: 'Mô tả',
+      // width: 200,
       dataIndex: 'description'
     },
-    {
-      width: 200,
-      title: 'Ảnh (url)'
-      // dataIndex: 'photoUrl',
-    },
+    // {
+    //   title: 'Ảnh (url)'
+    //   // dataIndex: 'photoUrl',
+    // },
     {
       title: 'Số lượng',
+      width: 90,
       dataIndex: 'quantity'
     },
     {
@@ -134,7 +137,7 @@ const ProductTable: React.FC<Props> = props => {
         dataSource={records}
         className="mt-10"
         pagination={false}
-        scroll={{ x: 'max-content' }}
+        scroll={{ x: 'max-content', y: '450px' }}
       />
     </div>
   )

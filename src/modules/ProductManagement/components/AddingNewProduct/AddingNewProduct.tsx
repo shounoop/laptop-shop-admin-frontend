@@ -54,7 +54,7 @@ const AddingNewProduct: React.FC<Props> = (props) => {
 
 	return (
 		<div>
-			<Button type="success" text="Thêm sản phẩm" onClick={showModal} />
+			<Button type="primary" text="Thêm sản phẩm" onClick={showModal} />
 
 			<Modal
 				title={<Title className="pb-4" level={3} text={`Thêm sản phẩm`} />}
@@ -135,7 +135,7 @@ const AddingNewProduct: React.FC<Props> = (props) => {
 					<Button
 						className="mt-4 w-full"
 						size="large"
-						type="success"
+						type="primary"
 						text="Thêm sản phẩm"
 						onClick={handleAddingNew}
 					/>
