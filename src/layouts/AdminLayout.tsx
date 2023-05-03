@@ -4,13 +4,14 @@ interface Props {
 
 import React, { useEffect, useState } from 'react'
 import {
+  DingdingOutlined,
   LaptopOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   ShoppingCartOutlined,
   UserOutlined
 } from '@ant-design/icons'
-import { Layout, Menu, Button, theme } from 'antd'
+import { Layout, Menu, Button, theme, Row } from 'antd'
 import { Title } from '@/src/components'
 import Link from 'next/link'
 import PATH from '../shared/path'
@@ -57,7 +58,21 @@ const AdminLayout: React.FC<Props> = props => {
   return (
     <Layout>
       <Sider theme="light" trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
+        <div className="p-2">
+          <Row align={'middle'}>
+            <DingdingOutlined className="text-[20px] text-primary" />
+
+            <Link
+              href={`#`}
+              className={
+                'bg-gradient-to-r from-primary to-black bg-clip-text pr-6 text-xl font-bold text-black text-transparent hover:text-primary'
+              }
+            >
+              {`LAPTOP SHOP`}
+            </Link>
+          </Row>
+        </div>
+
         <Menu
           theme="light"
           mode="inline"
