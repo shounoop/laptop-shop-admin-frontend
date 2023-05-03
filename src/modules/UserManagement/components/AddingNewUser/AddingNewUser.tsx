@@ -1,6 +1,16 @@
 import { Button, Title } from '@/src/components'
 import mainAxios from '@/src/libs/main-axios'
-import { Col, Divider, Input, Modal, Row, Select, Space, Tag } from 'antd'
+import {
+  Col,
+  Divider,
+  Input,
+  Modal,
+  Row,
+  Select,
+  Space,
+  Tag,
+  message
+} from 'antd'
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -78,11 +88,17 @@ const AddingNewUser: React.FC<Props> = props => {
         roles: selectedRoles
       }
 
-      await mainAxios.post(`http://localhost:3002/users`, payload)
+      const res: any = await mainAxios.post(
+        `http://localhost:3002/users`,
+        payload
+      )
 
       handleOk()
       router.reload()
-    } catch (error) {
+    } catch (error: any) {
+      if (error?.response?.data?.message) {
+        message.error(error.response.data.message)
+      }
       console.log(error)
     }
   }
