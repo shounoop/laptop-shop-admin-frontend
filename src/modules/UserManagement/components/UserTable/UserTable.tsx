@@ -3,6 +3,7 @@ import mainAxios from '@/src/libs/main-axios'
 import { Col, Popconfirm, Row, Table, message } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { useEffect, useState } from 'react'
+import UpdatingUser from '../UpdatingUser/UpdatingUser'
 
 interface RecordType {
   email: string
@@ -113,6 +114,10 @@ const UserTable: React.FC<Props> = props => {
               >
                 <Button type="primary" text={'Xóa'} />,
               </Popconfirm>
+            </Col>
+
+            <Col>
+              <UpdatingUser oldData={record} />
             </Col>
           </Row>
         )

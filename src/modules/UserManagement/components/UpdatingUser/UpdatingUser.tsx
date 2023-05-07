@@ -15,25 +15,40 @@ import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-interface Props {}
+interface Props {
+  oldData?: {
+    action?: any
+    email?: any
+    firstName?: any
+    lastName?: any
+    phone?: any
+    address?: any
+    type?: any
+    roles?: any
+  }
+}
 
 interface OptionsSelect {
   value: string
   label: string
 }
 
-const AddingNewUser: React.FC<Props> = props => {
+const UpdatingUser: React.FC<Props> = props => {
+  const { oldData } = props
+
+  const userId = oldData?.action?.userId
+
   // useRouter
   const router = useRouter()
 
   // useState
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [email, setEmail] = useState('hoangminhtuan01@gmail.com')
-  const [firstName, setFirstName] = useState('Tuan')
-  const [lastName, setLastName] = useState('Hoang')
-  const [phone, setPhone] = useState('0865465453')
-  const [address, setAddress] = useState('Hanoi')
-  const [type, setType] = useState('sysadmin')
+  const [email, setEmail] = useState(oldData?.email)
+  const [firstName, setFirstName] = useState(oldData?.firstName)
+  const [lastName, setLastName] = useState(oldData?.lastName)
+  const [phone, setPhone] = useState(oldData?.phone)
+  const [address, setAddress] = useState(oldData?.address)
+  const [type, setType] = useState(oldData?.type)
 
   const [roles, setRoles] = useState<any[]>()
   const [optionsSelect, setOptionsSelect] = useState<OptionsSelect[]>()
@@ -76,7 +91,9 @@ const AddingNewUser: React.FC<Props> = props => {
     setIsModalOpen(false)
   }
 
-  const handleAddingNew = async () => {
+  const handleUpdatingNew = async () => {
+    if (!userId) return
+
     try {
       const payload = {
         email,
@@ -88,10 +105,7 @@ const AddingNewUser: React.FC<Props> = props => {
         roles: selectedRoles
       }
 
-      const res: any = await mainAxios.post(
-        `http://localhost:3002/users`,
-        payload
-      )
+      await mainAxios.patch(`http://localhost:3001/users/${userId}`, payload)
 
       handleOk()
       router.reload()
@@ -118,12 +132,10 @@ const AddingNewUser: React.FC<Props> = props => {
 
   return (
     <div>
-      <Button type="primary" text="Thêm mới" onClick={showModal} />
+      <Button type="primary" text="Sửa" onClick={showModal} />
 
       <Modal
-        title={
-          <Title className="pb-4" level={3} text={`Thêm mới người dùng`} />
-        }
+        title={<Title className="pb-4" level={3} text={`Sửa người dùng`} />}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -241,8 +253,8 @@ const AddingNewUser: React.FC<Props> = props => {
             className="mt-6 w-full"
             size="large"
             type="primary"
-            text="Thêm mới người dùng"
-            onClick={handleAddingNew}
+            text="Sửa người dùng"
+            onClick={handleUpdatingNew}
           />
         </div>
       </Modal>
@@ -250,4 +262,4 @@ const AddingNewUser: React.FC<Props> = props => {
   )
 }
 
-export default AddingNewUser
+export default UpdatingUser
